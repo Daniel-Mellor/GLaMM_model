@@ -329,6 +329,14 @@ C       ### Sig xx ###
  55	     format(6e20.12)
          write(1,55) t,shearStress, shearStress/extdot,Zeff,n1, sig_yy
 
+	 write (4,*) t
+	 do p=1,N
+	    do q=1,N
+	       write(4,'(3ES20.10)')F(p,q,1,1),F(p,q,1,2),F(p,q,2,2)
+	    enddo
+	 enddo
+
+
 	 if( t<t2 ) then
 	    sig_xy0 = shearStress
 	    sig_yy0 = sig_yy
