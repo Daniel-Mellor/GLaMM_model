@@ -94,7 +94,7 @@ C       ### Rs ###
 
         taur = z**2*taue
         taud = 3*z*taur
-        h = fractaue*taue
+        h = fractaue*taue * (1.0*Z / (1.0*N) )**2
         nprint = nsave*10
         epsilon = 0.001
         eps2inv = 0.5/epsilon
@@ -200,7 +200,8 @@ C     & '/taue'//rateString//'.dat',status='unknown')
         open(unit=4,file=
      &   'Fpq'//ZString//trim(base_string)//'.dat',status='unknown')
 
-	write(1,*) '# time, shear stress, viscosity, Zeff, n1, sigma_yy'
+	write(1,*) '# time, shear stress, viscosity, Zeff, n1, sigma_yy, 
+     &    sigma_xx'
 	
 	if( t2.lt.finish) then
 	   open(unit=5,file='2nd'//ZString//
@@ -224,7 +225,7 @@ C       ### Main loop begins ###
         do while (t.le.finish)
 
 C       ### If timestep crosses into new shear region then cut it short
-	   h = fractaue*taue
+	   h = fractaue*taue * (1.0*Z / (1.0*N) )**2
 	   if( t<t2 .AND. t+h>t2) then
 	      h= t2-t
 	   endif
@@ -327,7 +328,8 @@ C       ### Sig xx ###
 
  20	     format(i4,3f12.8)
  55	     format(6e20.12)
-         write(1,55) t,shearStress, shearStress/extdot,Zeff,n1, sig_yy
+	     write(1,55) t,shearStress, shearStress/extdot,Zeff,n1, sig_yy
+     &	     ,sig_xx
 
 	 write (4,*) t
 	 do p=1,N

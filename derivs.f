@@ -130,35 +130,35 @@ C     =======Convection term for extension======================
 
 C       ###  Fxx  ###
 
-        !if (alpha.EQ.1) then
-	!   if (beta.EQ.1) then
-        !  sumcon=sumcon+2.0*extdot*F(p,q,1,1)
-	!endif
-	!endif
+      if (alpha.EQ.1) then
+	     if (beta.EQ.1) then
+          sumcon=sumcon+2.0*extdot*F(p,q,1,1)
+		 endif
+	  endif
 
 C       ###  Fyy  ###
 
-        !if (alpha.EQ.2) then
-        ! if (beta.EQ.2) then
-        !  sumcon=sumcon-extdot*F(p,q,2,2)
-        ! endif
-        !endif 
+        if (alpha.EQ.2) then
+          if (beta.EQ.2) then
+           sumcon=sumcon-extdot*F(p,q,2,2)
+          endif
+        endif 
         
 	 !==shear==
       !Fxx
-      if (alpha.EQ.1) then
-         if (beta.EQ.1) then
-            sumcon=sumcon+2.0*extdot*F(p,q,1,2)
-         endif
-      endif
+      !if (alpha.EQ.1) then
+         !if (beta.EQ.1) then
+            !sumcon=sumcon+2.0*extdot*F(p,q,1,2)
+         !endif
+      !endif
       
 
       !Fxy,yx term
-      if (alpha.EQ.1) then
-         if (beta.EQ.2) then
-            sumcon=sumcon+extdot*F(p,q,2,2)
-         endif
-      endif
+      !if (alpha.EQ.1) then
+         !if (beta.EQ.2) then
+            !sumcon=sumcon+extdot*F(p,q,2,2)
+         !endif
+      !endif
 
 
 C     =======CCr term======================
