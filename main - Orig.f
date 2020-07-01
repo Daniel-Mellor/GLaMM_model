@@ -199,8 +199,6 @@ C        open(unit=3,file='Trans'//ZString//
 C     & '/taue'//rateString//'.dat',status='unknown')
         open(unit=4,file=
      &   'Fpq'//ZString//trim(base_string)//'.dat',status='unknown')
-	    open(unit=8,file=
-     &   'Dfpq'//ZString//trim(base_string)//'.dat',status='unknown')
 
 	write(1,*) '# time, shear stress, viscosity, Zeff, n1, sigma_yy, 
      &    sigma_xx'
@@ -340,12 +338,6 @@ C       ### Sig xx ###
 	    enddo
 	 enddo
 
-	 write (8,*) t
-	 do p=1,N
-	    do q=1,N
-	       write(8,'(3ES20.10)')k11(p,q),k12(p,q),k22(p,q)
-	    enddo
-	 enddo
 
 	 if( t<t2 ) then
 	    sig_xy0 = shearStress
@@ -388,8 +380,7 @@ C       ###  Loop ends ###
 
         close(unit=1)
 C        close(unit=2)
-		close(unit=4)
-		close(unit=8)
+	close(unit=4)
 
         stop
         end

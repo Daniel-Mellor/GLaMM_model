@@ -199,11 +199,8 @@ C        open(unit=3,file='Trans'//ZString//
 C     & '/taue'//rateString//'.dat',status='unknown')
         open(unit=4,file=
      &   'Fpq'//ZString//trim(base_string)//'.dat',status='unknown')
-	    open(unit=8,file=
-     &   'Dfpq'//ZString//trim(base_string)//'.dat',status='unknown')
 
-	write(1,*) '# time, shear stress, viscosity, Zeff, n1, sigma_yy, 
-     &    sigma_xx'
+	write(1,*) '# time, shear stress, lambda, Zeff, n1, sigma_yy'
 	
 	if( t2.lt.finish) then
 	   open(unit=5,file='2nd'//ZString//
@@ -227,7 +224,7 @@ C       ### Main loop begins ###
         do while (t.le.finish)
 
 C       ### If timestep crosses into new shear region then cut it short
-	   h = fractaue*taue * (1.0*Z / (1.0*N) )**2
+	   h = fractaue*taue  * (1.0*Z / (1.0*N) )**2
 	   if( t<t2 .AND. t+h>t2) then
 	      h= t2-t
 	   endif
@@ -330,22 +327,7 @@ C       ### Sig xx ###
 
  20	     format(i4,3f12.8)
  55	     format(6e20.12)
-	     write(1,55) t,shearStress, shearStress/extdot,Zeff,n1, sig_yy
-     &	     ,sig_xx
-
-	 write (4,*) t
-	 do p=1,N
-	    do q=1,N
-	       write(4,'(3ES20.10)')F(p,q,1,1),F(p,q,1,2),F(p,q,2,2)
-	    enddo
-	 enddo
-
-	 write (8,*) t
-	 do p=1,N
-	    do q=1,N
-	       write(8,'(3ES20.10)')k11(p,q),k12(p,q),k22(p,q)
-	    enddo
-	 enddo
+         write(1,55) t,shearStress, lambda,Zeff,n1, sig_yy
 
 	 if( t<t2 ) then
 	    sig_xy0 = shearStress
@@ -388,8 +370,7 @@ C       ###  Loop ends ###
 
         close(unit=1)
 C        close(unit=2)
-		close(unit=4)
-		close(unit=8)
+	close(unit=4)
 
         stop
         end
